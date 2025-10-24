@@ -9,11 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.content.Intent;
+
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    // Declare the variables so that you will be able to reference it later.
+
     ListView cityList;
     EditText newName;
     LinearLayout nameField;
@@ -40,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         cityList.setAdapter(cityAdapter);
+        cityList.setOnItemClickListener((parent, view, position, id) -> {
+            String cityName = (String) parent.getItemAtPosition(position);
+            Intent intent = new Intent(MainActivity.this, ShowActivity.class);
+            intent.putExtra(ShowActivity.EXTRA_CITY, cityName);
+            startActivity(intent);
+        });
+
 
         final Button addButton = findViewById(R.id.button_add);
         addButton.setOnClickListener(new View.OnClickListener() {
